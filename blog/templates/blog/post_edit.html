@@ -2,8 +2,32 @@
 
 {% block content %}
     <h1>New post</h1>
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
+    <form method="POST" class="post-form form-horizontal">{% csrf_token %}
+    <script type="text/javascript">
+        {% if isvalid == False %}
+            alert("제목이나 내용은 필수 영역입니다")
+        {% endif %}
+    </script>
+        <div class="form-group">
+            <label for="id_title" class="col-sm-2 control-label">Title: {{ aa }}</label>
+            <div class="col-sm-8">
+                <input class="form-control" id="id_title" name="title" maxlength="255">
+            </div>
+            <div class="col-sm-2">
+                <select name="category" class="form-control">
+                    <option value="" selected>------</option>
+                    {% for category in categories %}
+                        <option value="{{ category.pk }}">{{ category.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_text" class="col-sm-2 control-label">Text:</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="id_text" name="text" rows="10"></textarea>
+            </div>
+        </div>
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 {% endblock %}
